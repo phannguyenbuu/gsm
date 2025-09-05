@@ -1,0 +1,14 @@
+{
+    "id": 2,
+    "pc_name": "PC-001",
+    "port": "COM1",
+    "phone_number": "0123456789",
+    "ccid": "12345CCID001",
+    "sim_provider": "ProviderA",
+    "content": "Sim content 1",
+    "install_date": "2025-08-01T08:00:00",
+    "remove_date": null,
+    "sales": 0,
+    "sales_target": 100,
+    "status": "active"
+}

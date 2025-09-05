@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COM Port Scanner</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>COM Port Information</h2>
+    <table>
+        <tr>
+            <th>COM Port</th>
+            <th>Status</th>
+            <th>SIM Provider</th>
+            <th>Phone Number</th>
+            <th>CCID</th>
+            <th>Content</th>
+        </tr>
+        {% for port in ports %}
+        <tr>
+            <td>{{ port.com_name }}</td>
+            <td>{{ port.status }}</td>
+            <td>{{ port.sim_provider }}</td>
+            <td>{{ port.phone_number }}</td>
+            <td>{{ port.ccid }}</td>
+            <td>{{ port.content }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

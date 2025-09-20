@@ -68,11 +68,13 @@
 
 <div class="content-area">
   <div id="content_sim" class="tab-content">
-    <button id="loadSimBtn">Tải sim</button>
-    <div id="loading" style="display:none;">Đang tải dữ liệu...</div>
-    <h3>Danh sách Sim</h3>
-    {% include 'simlist.html' %}
-</div>
+    <form method="post">
+      <input type="submit" name="sim_list" value="Tải sim">
+      <div id="loading" style="display:none;">Đang tải dữ liệu...</div>
+      <h3>Danh sách Sim</h3>
+      {% include 'simlist.html' %}
+    </form>
+  </div>
 
   <div id="content_sms" class="tab-content hidden">
     <form method="post">

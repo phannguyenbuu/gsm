@@ -4,7 +4,7 @@ import threading
 import webview
 import threading
 from check_com import listen_com11
-from app import scheduled_task
+from simlist import scheduled_task
 import sys, os
 from check_com import send_at_command, send_sms_quecltel_com9
 
@@ -178,6 +178,11 @@ def index():
                                           
                                         at_result='',
                                         last_message=last_message, lines=display_lines)
+        
+
+        elif 'sim_list' in request.form:
+            simlist = scheduled_task()
+            return render_template('receiver.html', simlist=simlist)
         
 
     # simlist = scheduled_task()  # giả sử scheduled_task trả về list port info

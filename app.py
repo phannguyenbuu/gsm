@@ -3,10 +3,10 @@ from flask import Flask
 import threading
 import webview
 import threading
-from check_com import listen_com11
+
 from simlist import get_all_port_info, scheduled_task
 import sys, os
-from check_com import send_at_command, send_sms_quecltel_com9
+from check_com import send_at_command, send_sms_quecltel_com, listen_com
 
 if getattr(sys, 'frozen', False):
     # đang chạy file exe PyInstaller
@@ -235,7 +235,7 @@ def start_sim_scan():
 def start_flask():
     # scheduled_task()
 
-    t = threading.Thread(target=listen_com11, daemon=True)
+    t = threading.Thread(target=listen_com, daemon=True)
     print(t)
     t.start()
     app.run(debug=True)

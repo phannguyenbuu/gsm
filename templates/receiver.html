@@ -69,13 +69,12 @@
 <div class="content-area">
   <div id="content_sim" class="tab-content">
     <form method="post">
-      <input type="submit" name="sim_list" value="Tải sim">
-
       <div style="display:flex; flex-direction:row">
+        <input type="submit" name="sim_list" value="Tải sim">
         <div id="loading" style="display:none;">Đang tải dữ liệu... <span id="countdown"></span> s</div>
       </div>
 
-      <h3>Danh sách Sim</h3>
+      <h3>Danh sách Sim {{ total_active_sim }}</h3>
       </form>
       {% include 'simlist.html' %}
     </form>

@@ -21,6 +21,7 @@ app = Flask(__name__,
 last_message = ""
 last_sms_result = ""
 simlist = []
+total_active_sims = 0
 
 @app.route('/data_ready')
 def data_ready():
@@ -130,6 +131,7 @@ def sms_save_data(jsonfile, services_records):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global simlist
+    global total_active_sims
 
     services_records = sms_load_services('json/services.json')
     print('total_services', len(services_records))
@@ -186,8 +188,11 @@ def index():
 
         elif 'sim_list' in request.form:
             simlist = get_all_port_info()
-            
+            total_active_sims = 0
+
             for sim in simlist:
+                if sim["phone_number"] != "Unknown":
+                    total_active_sims += 1
                 if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
                     sim["phone_number"] = '0' + sim["phone_number"]
                 if "DOCOMO" in sim["content"]:
@@ -197,7 +202,7 @@ def index():
 
             simlist.sort(key=lambda x: float(x["com_name"].replace('COM', '')))
 
-            return render_template('receiver.html', simlist=simlist,
+            return render_template('receiver.html', simlist=simlist, total_active_sims = total,
                                 sms_records = sms_records[::-1], sms_result="",
                                 otp_records = otp_records[::-1], otp_result="",
 )

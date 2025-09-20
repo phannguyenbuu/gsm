@@ -67,7 +67,7 @@ def sms_load_data(jsonfile, services_records):
 
     return sms_records
 
-def sms_save_data(jsonfile, services_records):
+def sms_save_data(port, jsonfile, services_records):
     mode = 'otp' if 'otp' in jsonfile else 'sms'
 
     phonenumber = request.form.get('phonenumber', '')
@@ -80,7 +80,7 @@ def sms_save_data(jsonfile, services_records):
         elif not sms_content.strip():
             sms_result = "Nhập nội dung SMS"
         else:
-            sms_result = send_sms_quecltel_com9(sms_phonenumber, sms_content)
+            sms_result = send_sms_quecltel_com(port, sms_phonenumber, sms_content)
     elif mode == 'otp':
         if not phonenumber.strip():
             sms_result = "Nhập số nhận"
@@ -172,15 +172,15 @@ def index():
                                         last_message=last_message, lines=display_lines)
 
         elif 'send_sms' in request.form:
-            sms_records, sms_content, sms_result = sms_save_data('json/sms_data.json', services_records)
-            otp_records, otp_content, otp_result = sms_save_data('json/sms_data.json', services_records)
+            sms_records, sms_content, sms_result = sms_save_data('COM31', 'json/sms_data.json', services_records)
+            # otp_records, otp_content, otp_result = sms_save_data('json/sms_data.json', services_records)
             
             return render_template('receiver.html', port=port, baudrate=baudrate,
                                         active_tab='sms', 
                                         simlist=simlist,
 
                                         sms_records = sms_records[::-1], sms_content=sms_content, sms_result=sms_result,
-                                        otp_records = otp_records[::-1], otp_content=otp_content, otp_result=otp_result,
+                                        otp_records = otp_records[::-1],
                                           
                                         at_result='',
                                         last_message=last_message, lines=display_lines)
@@ -205,7 +205,7 @@ def index():
             return render_template('receiver.html', simlist=simlist, total_active_sims = total_active_sims,
                                 sms_records = sms_records[::-1], sms_result="",
                                 otp_records = otp_records[::-1], otp_result="",
-)
+    )
         
 
     # simlist = scheduled_task()  # giả sử scheduled_task trả về list port info
@@ -232,16 +232,17 @@ def start_sim_scan():
     return jsonify({"status": "done", "simlist": simlist})
 
 
-def start_flask():
+def start_flask(port):
     # scheduled_task()
 
-    t = threading.Thread(target=listen_com, daemon=True)
+    t = threading.Thread(target=listen_com, args=(port, 9600), daemon=True)
+
     print(t)
     t.start()
     app.run(debug=True)
 
 def run_web_form():
-    flask_thread = threading.Thread(target=start_flask)
+    flask_thread = threading.Thread(target=start_flask, args=("COM73"))
     flask_thread.daemon = True
     flask_thread.start()
 
@@ -252,4 +253,4 @@ def run_web_form():
 
 if __name__ == "__main__":
     # run_web_form()
-    start_flask()
+    start_flask("COM73")

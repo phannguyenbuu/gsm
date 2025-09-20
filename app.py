@@ -186,8 +186,8 @@ def index():
             simlist = get_all_port_info()
             
             for sim in simlist:
-                if sim.phone_number != "Unknown" and sim.phone_number[0] != 0:
-                    sim.phone_number = '0' + sim.phone_number
+                if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
+                    sim["phone_number"] = '0' + sim["phone_number"]
 
             simlist.sort(key=lambda x: float(x.com_name.replace('COM', '')))
 

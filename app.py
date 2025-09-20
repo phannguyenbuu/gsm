@@ -144,7 +144,7 @@ def index():
 
     global last_message, last_sms_result, simlist
 
-    from check_com import received_lines, com7_status  # Bạn import trong hàm hoặc đầu file cũng được
+    from check_com import received_lines  # Bạn import trong hàm hoặc đầu file cũng được
 
     # Luôn lấy 50 dòng dữ liệu COM11 mới nhất để hiển thị
     display_lines = received_lines[-50:][::-1]
@@ -211,7 +211,7 @@ def index():
     # simlist = scheduled_task()  # giả sử scheduled_task trả về list port info
 
     # GET lần đầu hoặc không phải POST gửi lệnh/sms
-    return render_template('receiver.html', com7_status=com7_status, port="COM39", 
+    return render_template('receiver.html', port="COM39", 
                         #    simlist = simlist,
                                 baudrate=115200,active_tab=active_tab,
 

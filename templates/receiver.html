@@ -1,0 +1,204 @@
+<style>
+  body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+    height: 100vh;
+    background-color: #ccc;
+  }
+
+  h3 {
+   
+  }
+
+  input, label {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .sidebar-nav {
+    width: 180px;
+    min-height: 180px;
+    background: #f4f4f4;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-nav div {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sidebar-nav .active {
+    background: white;
+    font-weight: bold;
+    border-left: 4px solid #0056b3;
+  }
+
+  .content-area {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  .hidden {
+    display: none;
+  }
+
+  /* Form grid cho gửi SMS */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px 16px;
+    align-items: center;
+  }
+
+  table { border-collapse: collapse; width: 100%; border: #ccc; background: #fff}
+  th, td { border: 1px solid #ccc; padding: 8px; font-weight: 500; font-size: 12;}
+  th { background-color: #f2f2f2; font-weight: 500; font-size: 12;}
+</style>
+
+<div class="sidebar-nav">
+  <div id="tab_sim" class="active" onclick="switchTab('sim')">Danh sách Sim</div>
+  <div id="tab_sms" onclick="switchTab('sms')">Gửi SMS</div>
+  <div id="tab_otp" onclick="switchTab('otp')">Nhận OTP</div>
+</div>
+
+<div class="content-area">
+  <div id="content_sim" class="tab-content">
+    <button id="loadSimBtn">Tải sim</button>
+    <div id="loading" style="display:none;">Đang tải dữ liệu...</div>
+    <h3>Danh sách Sim</h3>
+    {% include 'simlist.html' %}
+</div>
+
+  <div id="content_sms" class="tab-content hidden">
+    <form method="post">
+      <h3>Gửi SMS</h3>
+
+      <div class="form-grid">
+        <label>Số điện thoại gửi tin:</label>
+        <select id="sms_phonenumber"></select>
+
+        <label>Số điện thoại nhận tin:</label>
+        <input type="text" name="sms_phone" value="09049623584" placeholder="+84123456789">
+
+        <label>Nội dung SMS:</label>
+        <input type="text" name="sms_content" value="{{sms_message}}">
+
+        <div></div> <!-- Ô trống căn nút -->
+        <input type="submit" name="send_sms" value="Gửi SMS">
+
+        <div style="grid-column: 1 / span 2;">
+          {% if sms_result %}
+          <b>Phản hồi:</b><br><pre>{{ sms_result }}</pre><br>
+          {% endif %}
+        </div>
+
+        {% include 'smslist.html' %}
+      </div>
+    </form>
+  </div>
+
+  <div id="content_otp" class="tab-content hidden">
+    <h3>Nhận dữ liệu từ số điện thoại</h3>
+    <label>Số điện thoại nhận tin:</label>
+    <input type="text" name="otp_phone" value="09049623584" placeholder="+84123456789">
+    <select id="otp_phonenumber"></select>
+    <pre style="background:#f0f0f0; height:150px; overflow:auto; border:1px solid #ccc;">
+        {% for line in lines %}
+        {{ line }}
+        {% endfor %}
+    </pre>
+    {% include 'otplist.html' %}
+    <!-- <p><i>Trang sẽ tự động refresh sau mỗi 5 giây</i></p> -->
+  </div>
+</div>
+
+
+<script>
+    document.getElementById("loadSimBtn").onclick = function(){
+        document.getElementById("loadSimBtn").style.display = 'none';
+        document.getElementById("loading").style.display = 'block';
+
+        fetch('/start_sim_scan', {method: 'POST'})
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.simlist);
+
+            document.getElementById("loading").style.display = 'none';
+
+            if(data.status === "done"){
+                const tbody = document.getElementById("simTableBody");
+                tbody.innerHTML = ""; // Xóa dữ liệu cũ nếu có
+                
+                const select = document.getElementById("otp_phonenumber");
+                select.innerHTML = "";
+
+                const selectSms = document.getElementById("sms_phonenumber");
+                select.innerHTML = "";
+
+
+                data.simlist.forEach(sim => {
+                    const tr = document.createElement("tr");
+                    
+                    let sim_provider = "";
+                    if("DOCOMO" in sim.content)
+                        sim_provider = "DOCOMO";
+
+                    tr.innerHTML = `
+                        <td>${sim.com_name}</td>
+                        <td>${sim.status}</td>
+                        <td>${sim.sim_provider}</td>
+                        <td>${sim.phone_number}</td>
+                        <td>${sim.ccid}</td>
+                        <td>${sim.content}</td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    const option = document.createElement("option");
+                    option.value = sim.com_name;         // value của option là com_name
+                    option.textContent = sim.phone_number; // Hiển thị phone_number
+                    select.appendChild(option);
+
+                    const optionSms = document.createElement("option");
+                    optionSms.value = sim.com_name;         // value của option là com_name
+                    optionSms.textContent = sim.phone_number; // Hiển thị phone_number
+                    select.appendChild(optionSms);
+
+
+
+                });
+
+
+            }
+        });
+    }
+</script>
+
+<script>
+  function switchTab(tab) {
+    const tabs = ['sim', 'sms', 'otp'];
+    tabs.forEach(t => {
+      document.getElementById('tab_' + t).classList.remove('active');
+      document.getElementById('content_' + t).classList.add('hidden');
+    });
+    document.getElementById('tab_' + tab).classList.add('active');
+    document.getElementById('content_' + tab).classList.remove('hidden');
+
+    const url = new URL(window.location);
+    url.searchParams.set('tab', tab);
+    window.history.pushState({}, '', url);
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const activeTab = "{{ active_tab }}";  // Biến Flask truyền vào
+    if (activeTab) {
+      switchTab(activeTab);
+    }
+  });
+</script>

@@ -1,0 +1,232 @@
+[
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "LINE 7377",
+        "time": "2025-09-20T07:54:00.360695",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "YAHOO 2356",
+        "time": "2025-09-20T07:53:49.273740",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "YAHOO 2356",
+        "time": "2025-09-20T07:53:01.504530",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "LINE 356789 WelcomeY",
+        "time": "2025-09-20T07:50:33.181050",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeYIIIP",
+        "time": "2025-09-20T07:46:02.157340",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY",
+        "time": "2025-09-20T07:45:54.582306",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeYXF",
+        "time": "2025-09-20T07:33:05.295442",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeYS",
+        "time": "2025-09-20T07:23:46.229389",
+        "service": "",
+        "result": "Lỗi mở hoặc giao tiếp cổng COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "Phế",
+        "time": "2025-09-20T07:22:10.165206",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeABCD",
+        "time": "2025-09-20T07:20:57.170361",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeX",
+        "time": "2025-09-20T07:20:53.017135",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY",
+        "time": "2025-09-20T07:20:49.801854",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY",
+        "time": "2025-09-20T07:19:52.307760",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY",
+        "time": "2025-09-20T07:19:45.790351",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:18:38.600851",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:18:34.062505",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:18:24.718436",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:16:12.547975",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:16:06.882872",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:15:58.176999",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:33.123782",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:30.535715",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:28.152435",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:26.845154",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:12.101190",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "",
+        "time": "2025-09-20T07:11:08.673472",
+        "service": ""
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY GOOGLE",
+        "time": "2025-09-20T07:55:05.322545",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "PENTDANT GOOG",
+        "time": "2025-09-20T07:56:22.081348",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "PENTDANT YAH",
+        "time": "2025-09-20T07:56:32.111858",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "PENTDANT YAHOO",
+        "time": "2025-09-20T07:56:36.711450",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    },
+    {
+        "from_phone": "",
+        "to_phone": "09049623584",
+        "content": "WelcomeY YAHOO_JAPAN",
+        "time": "2025-09-20T07:57:12.088874",
+        "service": "",
+        "result": "ERROR in open COM: could not open port 'COM40': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)"
+    }
+]

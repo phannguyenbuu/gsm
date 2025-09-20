@@ -1,0 +1,25 @@
+<table>
+    <thead>
+        <tr>
+            <th>Receive Phone Number</th>
+            <th style="min-width:280px">Content</th>
+            <th>Sent Phone Number</th>
+            <th>Service</th>
+            <th style="min-width:100px">Time</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody id="smsTableBody">
+        {% for sms in sms_records %}
+        <tr>
+            <td>{{ sms.from_phone }}</td>
+            <td>{{ sms.content }}</td>
+            <td>{{ sms.to_phone }}</td>
+            
+            <td>{{ sms.service }}</td>
+            <td style="font-size:10px">{{ sms.time }}</td>
+            <td>{% if 'ERROR' in sms.result %}Error{% else %}Success{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

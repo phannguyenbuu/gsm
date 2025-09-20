@@ -1,0 +1,24 @@
+<table>
+    <thead>
+        <tr>
+            <th>Receive Phone Number</th>
+            <th>Content</th>
+            <th>Sent Phone Number</th>
+            <th>Service</th>
+            <th>Time</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody id="otpTableBody">
+        {% for otp in simlist %}
+        <tr>
+            <td>{{ otp.to_phone }}</td>
+            <td>{{ otp.content }}</td>
+            <td>{{ otp.from_phone }}</td>
+            <td>{{ otp.service }}</td>
+            <td>{{ otp.time }}</td>
+            <td>{{ port.result }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

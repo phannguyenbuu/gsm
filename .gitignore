@@ -1,0 +1,5 @@
+build/receiver/
+__pycache__/
+dist/
+gsm.zip
+receiver.spec

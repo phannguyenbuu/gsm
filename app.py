@@ -189,7 +189,7 @@ def index():
                 if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
                     sim["phone_number"] = '0' + sim["phone_number"]
 
-            simlist.sort(key=lambda x: float(x.com_name.replace('COM', '')))
+            simlist.sort(key=lambda x: float(x["com_name"].replace('COM', '')))
 
             return render_template('receiver.html', simlist=simlist,
                                 sms_records = sms_records[::-1], sms_result="",

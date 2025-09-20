@@ -1,5 +1,7 @@
 <select id="phonenumber">
 {% for sim in simlist %}
-    <option>{{ sim.phone_number }}{{ sim.com_name }}</option>
+    {% if not 'Unknown' in sim.phone_number %}
+        <option>{{ sim.phone_number }} - {{ sim.com_name }}</option>
+    {% endif %}
 {% endfor %}
 </select>

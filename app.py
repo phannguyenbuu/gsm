@@ -130,7 +130,7 @@ def sms_save_data(jsonfile, services_records):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global simlist
-    
+
     services_records = sms_load_services('json/services.json')
     print('total_services', len(services_records))
     active_tab = request.args.get('tab', 'sim')
@@ -190,6 +190,10 @@ def index():
             for sim in simlist:
                 if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
                     sim["phone_number"] = '0' + sim["phone_number"]
+                if "DOCOMO" in sim["sim_provider"]:
+                    sim["sim_provider"] = "DOCOMO"
+                else:
+                    sim["sim_provider"] = ""
 
             simlist.sort(key=lambda x: float(x["com_name"].replace('COM', '')))
 

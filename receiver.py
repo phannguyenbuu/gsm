@@ -33,17 +33,23 @@ def data_ready():
 import json
 from datetime import datetime
 
-services_records = []
 
-def sms_load_service(jsonfile):
-    global services_records
+def sms_load_services(jsonfile):
+    services_records = []
 
     json_file_path = os.path.join(base_path, jsonfile)
     if os.path.exists(json_file_path):
         with open(json_file_path, 'r', encoding='utf-8') as f:
             services_records = json.load(f)
 
-def sms_load_record_board(jsonfile):
+    return services_records
+
+def search_service(item, services_records):
+    services = [ser["text"] for ser in services_records if ser["code"].upper() in item["content"].upper()]
+    return ','.join(services if len(services) > 0 else [])
+
+
+def sms_load_data(jsonfile, services_records):
     json_file_path = os.path.join(base_path, jsonfile)
     if os.path.exists(json_file_path):
         with open(json_file_path, 'r', encoding='utf-8') as f:
@@ -51,37 +57,54 @@ def sms_load_record_board(jsonfile):
     else:
         sms_records = []
 
+    print('services_records', len(services_records))
+
 
     for sms in sms_records:
         sms["time"] = datetime.strptime( sms["time"].split('.')[0], '%Y-%m-%dT%H:%M:%S') 
-        services = [ser["text"] for ser in services_records if ser["code"].upper() in sms["content"].upper()]
-
-        sms["service"] = services if len(services) > 0 else ''
+        sms['service'] = search_service(sms, services_records)
 
     return sms_records
 
-def sms_record_board(jsonfile):
+def sms_save_data(jsonfile, services_records):
+    mode = 'otp' if 'otp' in jsonfile else 'sms'
 
-    phone_number = request.form.get('sms_phone', '')
-    sms_message = request.form.get('sms_content', '')
-    if not phone_number.strip():
-        sms_result = "Vui lòng nhập số điện thoại."
-    elif not sms_message.strip():
-        sms_result = "Vui lòng nhập nội dung SMS."
-    else:
-        sms_result = send_sms_quecltel_com9(phone_number, sms_message)
-    last_sms_result = sms_result
-    message = request.form.get('message', '')
-    last_message = message
+    phonenumber = request.form.get('phonenumber', '')
+    sms_phonenumber = request.form.get('sms_phonenumber', '')
+    sms_content = request.form.get('sms_content', '')
 
-    data_to_save = {
-        "from_phone": request.form.get('sms_phonenumber', ''),
-        "to_phone": phone_number,
-        "content": sms_message,
-        "time": datetime.utcnow().isoformat(),
-        "service": "",
-        "result": sms_result,
-    }
+    if mode == 'sms':
+        if not sms_phonenumber.strip():
+            sms_result = "Nhập số nhận"
+        elif not sms_content.strip():
+            sms_result = "Nhập nội dung SMS"
+        else:
+            sms_result = send_sms_quecltel_com9(sms_phonenumber, sms_content)
+    elif mode == 'otp':
+        if not phonenumber.strip():
+            sms_result = "Nhập số nhận"
+
+    # last_sms_result = sms_result
+    # message = request.form.get('message', '')
+    # last_message = message
+
+    if mode == 'sms':
+        data_to_save = {
+            "from_phone": phonenumber,
+            "to_phone": sms_phonenumber,
+            "content": sms_content,
+            "time": datetime.utcnow().isoformat(),
+            "result": sms_result,
+        }
+    elif mode == 'otp':
+        data_to_save = {
+            "to_phone": sms_phonenumber,
+            "content": sms_content,
+            "time": datetime.utcnow().isoformat(),
+            "result": sms_result,
+        }
+
+    data_to_save['service'] = search_service(data_to_save, services_records)
     
     json_file_path = os.path.join(base_path, jsonfile)
 
@@ -101,15 +124,18 @@ def sms_record_board(jsonfile):
     with open(json_file_path, 'w', encoding='utf-8') as f:
         json.dump(existing_data, f, ensure_ascii=False, indent=4)
 
-    return existing_data, sms_message, sms_result
+    return existing_data, sms_content, sms_result
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    sms_load_service('json/services.json')
-
+    services_records = sms_load_services('json/services.json')
+    print('total_services', len(services_records))
     active_tab = request.args.get('tab', 'sim')
-    sms_records = sms_load_record_board('json/sms_data.json')
+    
+    sms_records = sms_load_data('json/sms_data.json', services_records)
+    otp_records = sms_load_data('json/otp_data.json', services_records)
+
     print('current_sms_records', len(sms_records))
 
     global last_message, last_sms_result, simlist
@@ -122,7 +148,6 @@ def index():
     if request.method == 'POST':
         port = request.form.get('port', 'COM40')
         baudrate = int(request.form.get('baudrate', 9600))
-
         
 
         if 'send_at' in request.form:
@@ -132,20 +157,27 @@ def index():
             last_message = message
             last_sms_result = ""
             return render_template('receiver.html', port=port, baudrate=baudrate,
-                                        active_tab='sim', sms_records = sms_records[::-1],
-                                          message=message, sms_message='', 
-                                          at_result=result, sms_result=sms_result,
-                                          last_message=last_message, lines=display_lines)
+                                        active_tab='sim',
+                                         
+                                        sms_records = sms_records[::-1], sms_content=sms_content, sms_result=sms_result,
+                                        otp_records = otp_records[::-1], otp_content=otp_content, otp_result=otp_result,
+
+                                        message=message, 
+                                        at_result=result,
+                                        last_message=last_message, lines=display_lines)
 
         elif 'send_sms' in request.form:
-            sms_records, sms_message, sms_result = sms_record_board('json/sms_data.json')
+            sms_records, sms_content, sms_result = sms_save_data('json/sms_data.json', services_records)
+            otp_records, otp_content, otp_result = sms_save_data('json/sms_data.json', services_records)
             
-
             return render_template('receiver.html', port=port, baudrate=baudrate,
-                                        active_tab='sms', sms_records = sms_records[::-1],
-                                          sms_message=sms_message,
-                                          at_result='', sms_result=sms_result,
-                                          last_message=last_message, lines=display_lines)
+                                        active_tab='sms', 
+
+                                        sms_records = sms_records[::-1], sms_content=sms_content, sms_result=sms_result,
+                                        otp_records = otp_records[::-1], otp_content=otp_content, otp_result=otp_result,
+                                          
+                                        at_result='',
+                                        last_message=last_message, lines=display_lines)
         
 
     # simlist = scheduled_task()  # giả sử scheduled_task trả về list port info
@@ -153,10 +185,14 @@ def index():
     # GET lần đầu hoặc không phải POST gửi lệnh/sms
     return render_template('receiver.html', com7_status=com7_status, port="COM39", 
                         #    simlist = simlist,
-                                baudrate=115200,active_tab=active_tab,sms_records = sms_records[::-1],
-                                  message="", sms_message="WelcomeY",
-                                  at_result="", sms_result="", last_message="",
-                                  lines=display_lines)
+                                baudrate=115200,active_tab=active_tab,
+
+                                sms_records = sms_records[::-1], sms_result="",
+                                otp_records = otp_records[::-1], otp_result="",
+
+                                message="", sms_message="WelcomeY",
+                                at_result="", last_message="",
+                                lines=display_lines)
 
 @app.route('/start_sim_scan', methods=['POST'])
 def start_sim_scan():

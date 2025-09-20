@@ -80,10 +80,10 @@
 
       <div class="form-grid">
         <label>Số điện thoại gửi tin:</label>
-        <select id="sms_phonenumber"></select>
+        <select id="phonenumber"></select>
 
         <label>Số điện thoại nhận tin:</label>
-        <input type="text" name="sms_phone" value="09049623584" placeholder="+84123456789">
+        <input type="text" name="sms_phonenumber" value="09049623584" placeholder="+84123456789">
 
         <label>Nội dung SMS:</label>
         <input type="text" name="sms_content" value="{{sms_message}}">
@@ -103,10 +103,10 @@
   </div>
 
   <div id="content_otp" class="tab-content hidden">
-    <h3>Nhận dữ liệu từ số điện thoại</h3>
+    <h3>Nhận OTP từ số điện thoại</h3>
     <label>Số điện thoại nhận tin:</label>
-    <input type="text" name="otp_phone" value="09049623584" placeholder="+84123456789">
-    <select id="otp_phonenumber"></select>
+    <input type="text" name="phonenumber" value="09049623584" placeholder="+84123456789">
+    <select id="phonenumber"></select>
     <pre style="background:#f0f0f0; height:150px; overflow:auto; border:1px solid #ccc;">
         {% for line in lines %}
         {{ line }}

@@ -71,10 +71,10 @@
     <form method="post">
       <div style="display:flex; flex-direction:row">
         <input type="submit" name="sim_list" value="Tải sim">
-        <div id="loading" style="display:none;">Đang tải dữ liệu... <span id="countdown"></span> s</div>
+        <div id="loading" style="display:none;">Đang tải danh sách phone number ... <span id="countdown"></span> s</div>
       </div>
 
-      <h3>Danh sách Sim {{ total_active_sim }}</h3>
+      <h3>Danh sách Sim {{ total_active_sims }}</h3>
       </form>
       {% include 'simlist.html' %}
     </form>

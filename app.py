@@ -202,7 +202,7 @@ def index():
 
             simlist.sort(key=lambda x: float(x["com_name"].replace('COM', '')))
 
-            return render_template('receiver.html', simlist=simlist, total_active_sims = total,
+            return render_template('receiver.html', simlist=simlist, total_active_sims = total_active_sims,
                                 sms_records = sms_records[::-1], sms_result="",
                                 otp_records = otp_records[::-1], otp_result="",
 )

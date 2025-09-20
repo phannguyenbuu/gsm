@@ -10,14 +10,14 @@
         </tr>
     </thead>
     <tbody id="simTableBody">
-        {% for port in simlist %}
+        {% for sim in simlist %}
         <tr>
-            <td>{{ port.com_name }}</td>
+            <td>{{ sim.com_name }}</td>
             
-            <td>{{ port.sim_provider }}</td>
-            <td>{{ port.phone_number }}</td>
-            <td>{{ port.ccid }}</td>
-            <td>{{ port.content }}</td>
+            <td>{{ sim.sim_provider }}</td>
+            <td>{{ sim.phone_number }}</td>
+            <td>{{ sim.ccid }}</td>
+            <td>{{ sim.content }}</td>
         </tr>
         {% endfor %}
     </tbody>

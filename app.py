@@ -129,6 +129,8 @@ def sms_save_data(jsonfile, services_records):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global simlist
+    
     services_records = sms_load_services('json/services.json')
     print('total_services', len(services_records))
     active_tab = request.args.get('tab', 'sim')

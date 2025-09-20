@@ -70,7 +70,7 @@
   <div id="content_sim" class="tab-content">
     <form method="post">
       <input type="submit" name="sim_list" value="Tải sim">
-      <div id="loading" style="display:none;">Đang tải dữ liệu...</div>
+      <div id="loading" style="display:none;">Đang tải dữ liệu... <span id="countdown"></span> s</div>
       <h3>Danh sách Sim</h3>
       {% include 'simlist.html' %}
     </form>
@@ -119,6 +119,28 @@
     <!-- <p><i>Trang sẽ tự động refresh sau mỗi 5 giây</i></p> -->
   </div>
 </div>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    // Hiện loading
+    const loadingDiv = document.getElementById('loading');
+    loadingDiv.style.display = 'block';
+
+    let countdown = 0; // thời gian đếm ngược giây, bạn điều chỉnh
+
+    const countdownSpan = document.getElementById('countdown');
+    countdownSpan.textContent = countdown;
+
+    const interval = setInterval(() => {
+      countdown++;
+      if (countdown <= 0) {
+        clearInterval(interval);
+      } else {
+        countdownSpan.textContent = countdown;
+      }
+    }, 1000);
+  });
+</script>
 
 
 <script>

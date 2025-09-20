@@ -4,7 +4,7 @@ import threading
 import webview
 import threading
 from check_com import listen_com11
-from simlist import scheduled_task
+from simlist import get_all_port_info, scheduled_task
 import sys, os
 from check_com import send_at_command, send_sms_quecltel_com9
 
@@ -20,7 +20,7 @@ app = Flask(__name__,
 
 last_message = ""
 last_sms_result = ""
-simlist = None
+simlist = []
 
 @app.route('/data_ready')
 def data_ready():
@@ -158,6 +158,7 @@ def index():
             last_sms_result = ""
             return render_template('receiver.html', port=port, baudrate=baudrate,
                                         active_tab='sim',
+                                        simlist=simlist,
                                          
                                         sms_records = sms_records[::-1], sms_content=sms_content, sms_result=sms_result,
                                         otp_records = otp_records[::-1], otp_content=otp_content, otp_result=otp_result,
@@ -172,6 +173,7 @@ def index():
             
             return render_template('receiver.html', port=port, baudrate=baudrate,
                                         active_tab='sms', 
+                                        simlist=simlist,
 
                                         sms_records = sms_records[::-1], sms_content=sms_content, sms_result=sms_result,
                                         otp_records = otp_records[::-1], otp_content=otp_content, otp_result=otp_result,
@@ -181,8 +183,18 @@ def index():
         
 
         elif 'sim_list' in request.form:
-            simlist = scheduled_task()
-            return render_template('receiver.html', simlist=simlist)
+            simlist = get_all_port_info()
+            
+            for sim in simlist:
+                if sim.phone_number != "Unknown" and sim.phone_number[0] != 0:
+                    sim.phone_number = '0' + sim.phone_number
+
+            simlist.sort(key=lambda x: float(x.com_name.replace('COM', '')))
+
+            return render_template('receiver.html', simlist=simlist,
+                                sms_records = sms_records[::-1], sms_result="",
+                                otp_records = otp_records[::-1], otp_result="",
+)
         
 
     # simlist = scheduled_task()  # giả sử scheduled_task trả về list port info

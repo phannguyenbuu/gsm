@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>COM Port</th>
-            <th>Status</th>
+            
             <th>SIM Provider</th>
             <th>Phone Number</th>
             <th>CCID</th>
@@ -13,7 +13,7 @@
         {% for port in simlist %}
         <tr>
             <td>{{ port.com_name }}</td>
-            <td>{{ port.status }}</td>
+            
             <td>{{ port.sim_provider }}</td>
             <td>{{ port.phone_number }}</td>
             <td>{{ port.ccid }}</td>

@@ -1,0 +1,59 @@
+<script>
+    document.getElementById("loadSimBtn").onclick = function(){
+        document.getElementById("loadSimBtn").style.display = 'none';
+        document.getElementById("loading").style.display = 'block';
+
+        fetch('/start_sim_scan', {method: 'POST'})
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.simlist);
+
+            document.getElementById("loading").style.display = 'none';
+
+            if(data.status === "done"){
+                const tbody = document.getElementById("simTableBody");
+                tbody.innerHTML = ""; // Xóa dữ liệu cũ nếu có
+                
+                const select = document.getElementById("otp_phonenumber");
+                select.innerHTML = "";
+
+                const selectSms = document.getElementById("sms_phonenumber");
+                select.innerHTML = "";
+
+
+                data.simlist.forEach(sim => {
+                    const tr = document.createElement("tr");
+                    
+                    let sim_provider = "";
+                    if("DOCOMO" in sim.content)
+                        sim_provider = "DOCOMO";
+
+                    tr.innerHTML = `
+                        <td>${sim.com_name}</td>
+                        <td>${sim.status}</td>
+                        <td>${sim.sim_provider}</td>
+                        <td>${sim.phone_number}</td>
+                        <td>${sim.ccid}</td>
+                        <td>${sim.content}</td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    const option = document.createElement("option");
+                    option.value = sim.com_name;         // value của option là com_name
+                    option.textContent = sim.phone_number; // Hiển thị phone_number
+                    select.appendChild(option);
+
+                    const optionSms = document.createElement("option");
+                    optionSms.value = sim.com_name;         // value của option là com_name
+                    optionSms.textContent = sim.phone_number; // Hiển thị phone_number
+                    select.appendChild(optionSms);
+
+
+
+                });
+
+
+            }
+        });
+    }
+</script>

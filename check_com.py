@@ -44,8 +44,8 @@ def send_at_command(port='COM3', baudrate=9600, at_command='AT\r\n', timeout=2):
 
 import time
 
-def send_sms_quecltel_com9(phone_number, message):
-    port = 'COM40'
+def send_sms_quecltel_com(port, phone_number, message):
+    # port = 'COM40'
     baudrate = 9600
     at_command_mode = 'AT+CMGF=1\r'  # Chọn chế độ text mode
     at_command_send = f'AT+CMGS="{phone_number}"\r'
@@ -69,9 +69,9 @@ def send_sms_quecltel_com9(phone_number, message):
             print("Response after sending message:", response.strip())
 
             if "OK" in response:
-                return "Gửi SMS thành công"
+                return "Successful send SMS"
             else:
-                return f"Phản hồi khi gửi SMS: {response.strip()}"
+                return f"Response SMS: {response.strip()}"
 
     except serial.SerialException as e:
         return f"ERROR in open COM: {e}"
@@ -79,28 +79,30 @@ def send_sms_quecltel_com9(phone_number, message):
 import serial
 
 received_lines = []  # Dùng biến toàn cục lưu dòng dữ liệu nhận được
-com7_status = "Chưa mở"
 
-def listen_com11(baudrate=9600):
-    port = 'COM55'
+def listen_com(port, baudrate=9600):
+    # port = 'COM55'
     try:
         with serial.Serial(port, baudrate, timeout=1) as ser:
-            com7_status = f"Đã mở thành công cổng {port} với baudrate {baudrate}"
-            
-            print(f"Listening on {port}...", com7_status)
+            print(f"Đã mở thành công cổng {port} với baudrate {baudrate}")
             while True:
                 line = ser.readline()
                 print(line)
+
                 if line:
                     text = line.decode('utf-8', errors='ignore').strip()
                     print(f"Received: {text}")
                     # Giữ tối đa 50 dòng gần nhất, tránh bộ nhớ tăng mãi
                     received_lines.append(text)
+                    
                     if len(received_lines) > 50:
                         received_lines.pop(0)
+
+                    return received_lines
                 else:
                     # Tạm nghỉ 0.1s cho CPU đỡ tải
                     time.sleep(0.1)
+                
     except serial.SerialException as e:
         print(f"Error opening {port}: {e}")
 

@@ -190,7 +190,7 @@ def index():
             for sim in simlist:
                 if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
                     sim["phone_number"] = '0' + sim["phone_number"]
-                if "DOCOMO" in sim["sim_provider"]:
+                if "DOCOMO" in sim["content"]:
                     sim["sim_provider"] = "DOCOMO"
                 else:
                     sim["sim_provider"] = ""

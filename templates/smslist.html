@@ -1,25 +1,104 @@
-<table>
-    <thead>
-        <tr>
-            <th>Receive Phone Number</th>
-            <th style="min-width:280px">Content</th>
-            <th>Sent Phone Number</th>
-            <th>Service</th>
-            <th style="min-width:100px">Time</th>
-            <th>Result</th>
-        </tr>
-    </thead>
-    <tbody id="smsTableBody">
-        {% for sms in sms_records %}
-        <tr>
-            <td>{{ sms.from_phone }}</td>
-            <td>{{ sms.content }}</td>
-            <td>{{ sms.to_phone }}</td>
-            
-            <td>{{ sms.service }}</td>
-            <td style="font-size:10px">{{ sms.time }}</td>
-            <td>{% if 'ERROR' in sms.result %}Error{% else %}Success{% endif %}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="display:flex;flex-direction:column">
+    <div style="width:100%;margin:20px 0px;padding:20px 0px;display:flex;flex-direction:column;border-top:1px solid #333;">
+      {% include 'controlDiv.html' %}
+      <div id="smsPagination" style="min-width:600px;"></div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="check-all"></th>
+                <th style="min-width:100px">Receive No.</th>
+                <th style="min-width:280px">Content</th>
+                <th>Sent No.</th>
+                <th>Service</th>
+                <th style="min-width:100px">Time</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody id="smsTableBody">
+            {% for sms in sms_records %}
+            <tr>
+                <td><input type="checkbox" id="item-{{ loop.index0  }}"/></td>
+                <td>{{ sms.from_phone }}</td>
+                <td>{{ sms.content }}</td>
+                <td>{{ sms.to_phone }}</td>
+                
+                <td>{{ sms.service }}</td>
+                <td style="font-size:10px">{{ sms.time }}</td>
+                <td>{% if 'ERROR' in sms.result %}Error{% else %}Success{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    window.AddControlDiv("smsTableBody","smsPagination", 15);
+  });
+</script>
+
+
+<script>
+  window.AddControlDiv = (idTable, idPaging, rowsPerPage) => {
+  
+    // const rowsPerPage = 15;
+    const tableBody = document.getElementById(idTable);
+    const rows = tableBody.getElementsByTagName("tr");
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+    const paginationDiv = document.getElementById(idPaging);
+
+    let currentPage = 1;
+
+    function showPage(page) {
+      currentPage = page;
+      // Ẩn tất cả các dòng
+      for (let i = 0; i < totalRows; i++) {
+        rows[i].style.display = "none";
+      }
+      // Hiển thị các dòng của trang hiện tại
+      const start = (page - 1) * rowsPerPage;
+      const end = Math.min(start + rowsPerPage, totalRows);
+      for (let i = start; i < end; i++) {
+        rows[i].style.display = "";
+      }
+      // Cập nhật giao diện phân trang
+      renderPagination();
+    }
+
+    function renderPagination() {
+      paginationDiv.innerHTML = "";
+
+      // Prev button
+      const prevBtn = document.createElement("button");
+      prevBtn.textContent = "Prev";
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => showPage(currentPage - 1);
+      paginationDiv.appendChild(prevBtn);
+
+      // Trang số
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+          pageBtn.disabled = true;
+        }
+        pageBtn.onclick = () => showPage(i);
+        paginationDiv.appendChild(pageBtn);
+      }
+
+      // Next button
+      const nextBtn = document.createElement("button");
+      nextBtn.textContent = "Next";
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => showPage(currentPage + 1);
+      paginationDiv.appendChild(nextBtn);
+    }
+
+    // Khởi tạo hiển thị trang đầu tiên
+    showPage(1);
+  
+}
+</script>

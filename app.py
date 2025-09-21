@@ -128,10 +128,21 @@ def sms_save_data(port, jsonfile, services_records):
     return existing_data, sms_content, sms_result
 
 
+def load_simlist(jsonfile):
+    json_file_path = os.path.join(base_path, jsonfile)
+    with open(json_file_path, 'r', encoding='utf-8') as f:
+        phonelist = json.load(f)
+
+    return phonelist
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global simlist
     global total_active_sims
+
+    
 
     services_records = sms_load_services('json/services.json')
     print('total_services', len(services_records))
@@ -142,7 +153,7 @@ def index():
 
     print('current_sms_records', len(sms_records))
 
-    global last_message, last_sms_result, simlist
+    # global last_message, last_sms_result, simlist
 
     from check_com import received_lines  # Bạn import trong hàm hoặc đầu file cũng được
 
@@ -187,13 +198,14 @@ def index():
         
 
         elif 'sim_list' in request.form:
-            simlist = get_all_port_info()
+            # simlist = get_all_port_info()
+            simlist = load_simlist('json/phonelist.json')
             total_active_sims = 0
 
             for sim in simlist:
                 if sim["phone_number"] != "Unknown":
                     total_active_sims += 1
-                if sim["phone_number"] != "Unknown" and sim["phone_number"][0] != 0:
+                if sim["phone_number"] != "Unknown" and  sim["phone_number"] != '' and sim["phone_number"][0] != 0:
                     sim["phone_number"] = '0' + sim["phone_number"]
                 if "DOCOMO" in sim["content"]:
                     sim["sim_provider"] = "DOCOMO"
@@ -230,7 +242,6 @@ def start_sim_scan():
     simlist = scheduled_task()
 
     return jsonify({"status": "done", "simlist": simlist})
-
 
 def start_flask(port):
     # scheduled_task()

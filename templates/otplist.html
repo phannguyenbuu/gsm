@@ -1,24 +1,42 @@
-<table>
-    <thead>
-        <tr>
-            <th>Receive Phone Number</th>
-            <th>Content</th>
-            <th>Sent Phone Number</th>
-            <th>Service</th>
-            <th>Time</th>
-            <th>Result</th>
-        </tr>
-    </thead>
-    <tbody id="otpTableBody">
-        {% for otp in otp_records %}
-        <tr>
-            <td>{{ otp.to_phone }}</td>
-            <td>{{ otp.content }}</td>
-            <td>{{ otp.from_phone }}</td>
-            <td>{{ otp.service }}</td>
-            <td>{{ otp.time }}</td>
-            <td>{{ otp.result }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="display:flex;flex-direction:column">
+    <div style="width:100%;margin:20px 0px;padding:20px 0px;display:flex;flex-direction:column;border-top:1px solid #333;">
+        {% include 'controlDiv.html' %}   
+        
+        <div id="otpPagination" style="min-width:600px;"></div>
+        
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="check-all"></th>
+                <th style="min-width:100px">Receive No.</th>
+                <th style="min-width:300px">Content</th>
+                <th style="min-width:100px">Sent No.</th>
+                <th>Service</th>
+                <th>Time</th>
+                <th style="min-width:1000px">Result</th>
+            </tr>
+        </thead>
+        <tbody id="otpTableBody">
+            {% for otp in otp_records %}
+            <tr>
+                <td><input type="checkbox" id="item-{{ loop.index0  }}"/></td>
+                <td>{{ otp.to_phone }}</td>
+                <td>{{ otp.content }}</td>
+                <td>{{ otp.from_phone }}</td>
+                <td>{{ otp.service }}</td>
+                <td style="font-size:10px">{{ otp.time }}</td>
+                <td>{{ otp.result }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    window.AddControlDiv("otpTableBody","otpPagination", 10);
+  });
+</script>

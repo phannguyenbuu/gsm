@@ -1,0 +1,28 @@
+<div style="display:flex;flex-direction:row;gap:10px">
+    <label>Từ Ngày: <input type="text" id="datetimepicker_start" /></label>
+    <label>Đến Ngày: <input type="text" id="datetimepicker_end" /></label>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@2.5.20/build/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@2.5.20/build/jquery.datetimepicker.min.css"/>
+
+<script>
+  jQuery('#datetimepicker_start').datetimepicker({
+    format: 'Y-m-d H:i',
+    onChangeDateTime: function(currentDateTime) {
+      jQuery('#datetimepicker_end').datetimepicker('setOptions', {
+        minDate: currentDateTime
+      });
+    }
+  });
+
+  jQuery('#datetimepicker_end').datetimepicker({
+    format: 'Y-m-d H:i',
+    onChangeDateTime: function(currentDateTime) {
+      jQuery('#datetimepicker_start').datetimepicker('setOptions', {
+        maxDate: currentDateTime
+      });
+    }
+  });
+</script>
